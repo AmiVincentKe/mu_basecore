@@ -96,6 +96,9 @@
   #
   CustomizedDisplayLib|Include/Library/CustomizedDisplayLib.h
 
+  ## @libraryclass   Provides LZMA compression functions.
+  LzmaCompressLib|Include/Library/LzmaCompressLib.h
+
   ## @libraryclass   Provides sorting functions
   SortLib|Include/Library/SortLib.h
 
@@ -212,7 +215,7 @@
   ## @libraryclass  This library is used to report memory type information change
   ##                across a reboot.
   MemoryTypeInformationChangeLib|Include/Library/MemoryTypeInformationChangeLib.h
-  
+
   ## MU_CHANGE
   ##  @libraryclass  A public library interface for persisting Capsules across reset.
   #     This provides platform-defined support for persistence on architectures
@@ -705,7 +708,7 @@
   # MU_CHANGE
   # This protocol provides access to Internal Event services that do not need TPL_APPLICATION
   gInternalEventServicesProtocolGuid = {0x7ecd162a, 0xc664, 0x11ec, { 0x9d, 0x64, 0x02, 0x42, 0xac, 0x12, 0x00, 0x02 } }
-  
+
   # MU_CHANGE
   # This protocol provides debug access to Heap Guard memory protections
   # Include/Protocol/MemoryProtectionDebug.h
@@ -1096,7 +1099,7 @@
   #   FALSE - Does not support process non-reset capsule image at runtime.<BR>
   # @Prompt Enable process non-reset capsule image at runtime.
   gEfiMdeModulePkgTokenSpaceGuid.PcdSupportProcessCapsuleAtRuntime|FALSE|BOOLEAN|0x00010079
-  
+
   ## MU_CHANGE
   ## Indicates that the system should not automatically enable BME on P2P bridges until a subordinate
   #  device has its Bus Master Enable bit set by a call to PciIo->SetAttributes.
@@ -1384,7 +1387,7 @@
   # Default is 2000, it represent delay is 2 ms.
   # @Prompt Delay access XHCI register after it issues HCRST (us)
   gEfiMdeModulePkgTokenSpaceGuid.PcdDelayXhciHCReset|2000|UINT16|0x30001060
-  
+
   # MU_CHANGE [BEGIN] - Support alternative hardware queue sizes in NVME driver
   gEfiMdeModulePkgTokenSpaceGuid.PcdSupportAlternativeQueueSize|FALSE|BOOLEAN|0x40000151
   # MU_CHANGE [END]
@@ -1416,7 +1419,7 @@
   # @Prompt NVMe generic command timeout (seconds).
   gEfiMdeModulePkgTokenSpaceGuid.PcdNvmeGenericTimeout|5|UINT32|0x40000154
   # MU_CHANGE [END] - Configurable NVMe generic command timeout
-  
+
 [PcdsFixedAtBuild, PcdsPatchableInModule]
   ## Dynamic type PCD can be registered callback function for Pcd setting action.
   #  PcdMaxPeiPcdCallBackNumberPerPcdEntry indicates the maximum number of callback function
@@ -2532,7 +2535,7 @@
   ## The value of rate limiter event for timeout check. Default value is 100(unit 1ms).
   # @Prompt The value is use for Usb Network rate limiting supported.
   gEfiMdeModulePkgTokenSpaceGuid.PcdUsbNetworkRateLimitingFactor|100|UINT32|0x10000028
-  
+
   ## MU_CHANGE - Configuring timer interval in terminal DXE driver
   ## This PCD determines the timer interval to be set when using serial console.
   # @Prompt Sets the serial console timer interval, in the unit of 100ns.
@@ -2552,7 +2555,7 @@
   #   FALSE - Do not disable BME on P2P at Exit Boot Services.
   # @Prompt Disable BME on Exit Boot Services
   gEfiMdeModulePkgTokenSpaceGuid.PcdDisableBMEonEBS|TRUE|BOOLEAN|0x30002051
-  
+
   # MU_CHANGE Start - MEM64 to PMEM64 conversion
   ## Indicates if Mem64 resource requests can be allocated using the PMem64
   #  pool during PCI enumeration in case Mem64 resources are not available.
@@ -2645,7 +2648,7 @@
   ## This dynamic PCD holds the device state bitmap as described in Include/Library/DeviceStateLib.h
   # @Prompt Describes device state
   gEfiMdeModulePkgTokenSpaceGuid.PcdDeviceStateBitmask|0x00000000|UINT32|0x00040009
-  
+
 [PcdsDynamicEx]
   ## This dynamic PCD enables the default variable setting.
   #  Its value is the default store ID value. The default value is zero as Standard default.

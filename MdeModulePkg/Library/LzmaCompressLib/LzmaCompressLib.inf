@@ -1,0 +1,64 @@
+## @file
+#  LzmaCompressLib produces LZMA custom compression algorithm.
+#
+#  It is based on the LZMA SDK 19.00.
+#  LZMA SDK 19.00 was placed in the public domain on 2026-06-15.
+#  It was released on the http://www.7-zip.org/sdk.html website.
+#
+#  Copyright (c) 2025, Microsoft Corporation. All rights reserved.<BR>
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = LzmaCompressLib
+  MODULE_UNI_FILE                = LzmaCompressLib.uni
+  FILE_GUID                      = 3cab70ff-2b06-426e-9c03-b021e81387d1
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = LzmaCompressLib
+  CONSTRUCTOR                    = LzmaCompressLibConstructor
+
+[Sources]
+  LzmaCompress.c
+  Sdk/C/LzFind.c
+  Sdk/C/LzmaEnc.c
+  Sdk/C/Bra86.c
+  Sdk/C/7zVersion.h
+  Sdk/C/Bra.h
+  Sdk/C/Compiler.h
+  Sdk/C/CpuArch.h
+  Sdk/C/LzFind.h
+  Sdk/C/LzHash.h
+  Sdk/C/LzmaEnc.h
+  Sdk/C/7zTypes.h
+  Sdk/C/Precomp.h
+  UefiLzma.h
+  LzmaCompressLibInternal.h
+
+# On IA32 MSVC, the LZMA encoder uses 64-bit shifts that the compiler
+# lowers to _aullshr helper calls.  UEFI modules are built with
+# /NODEFAULTLIB so the CRT is absent.  Supply the replacement here.
+[Sources.IA32]
+  Ia32/MathRShiftU64.c               | MSFT
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  DebugLib
+  BaseMemoryLib
+  MemoryAllocationLib
+
+# Ia32/MathRShiftU64.c uses __declspec(naked) + inline assembly to provide
+# the _aullshr IA32 64-bit-shift CRT helper.  /GL (Whole Program Optimization)
+# is incompatible with __declspec(naked), so override the IA32 MSVC CC flags
+# to remove /GL while preserving all other flag values.
+[BuildOptions]
+  MSFT:DEBUG_*_IA32_CC_FLAGS   == /nologo /arch:IA32 /c /WX /GS /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gy /Z7 /Gw /utf-8
+  MSFT:RELEASE_*_IA32_CC_FLAGS == /nologo /arch:IA32 /c /WX /GS /W4 /Gs32768 /D UNICODE /O1b2 /FIAutoGen.h /EHs-c- /GR- /GF /Gw /utf-8

@@ -1,0 +1,17 @@
+// /** @file
+// LzmaCompressLib produces LZMA custom compression algorithm.
+//
+// It is based on the LZMA SDK 19.00.
+// LZMA SDK 19.00 was placed in the public domain on 2026-06-15.
+// It was released on the http://www.7-zip.org/sdk.html website.
+//
+// Copyright (c) 2025, Microsoft Corporation. All rights reserved.<BR>
+//
+// SPDX-License-Identifier: BSD-2-Clause-Patent
+//
+// **/
+
+
+#string STR_MODULE_ABSTRACT             #language en-US "LzmaCompressLib produces LZMA custom compression algorithm"
+
+#string STR_MODULE_DESCRIPTION          #language en-US "It is based on the LZMA SDK 19.00. LZMA SDK 19.00 was placed in the public domain on 2026-06-15. It was released on the website http://www.7-zip.org/sdk.html ."
