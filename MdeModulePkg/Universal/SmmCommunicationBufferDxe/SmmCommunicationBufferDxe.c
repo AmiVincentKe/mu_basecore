@@ -21,6 +21,7 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 #include <Library/DebugLib.h>
 #include <Library/HobLib.h>
 #include <Library/UefiLib.h>
+#include <Library/PcdLib.h>
 #include <Guid/MmCommBuffer.h>
 #include <Guid/PiSmmCommunicationRegionTable.h>
 
@@ -43,6 +44,7 @@ SmmCommunicationBufferEntryPoint (
   )
 {
   EFI_STATUS                               Status;
+  UINTN                                    FallbackPages;
   UINT32                                   DescriptorSize;
   EDKII_PI_SMM_COMMUNICATION_REGION_TABLE  *PiSmmCommunicationRegionTable;
   EFI_MEMORY_DESCRIPTOR                    *Entry;
@@ -78,8 +80,13 @@ SmmCommunicationBufferEntryPoint (
   GuidHob = GetFirstGuidHob (&gMmCommBufferHobGuid);
 
   if (GuidHob == NULL) {
-    Entry->PhysicalStart = (EFI_PHYSICAL_ADDRESS)(UINTN)AllocateReservedPages (DEFAULT_COMMON_PI_SMM_COMMUNIATION_REGION_PAGES);
-    Entry->NumberOfPages = DEFAULT_COMMON_PI_SMM_COMMUNIATION_REGION_PAGES;
+    FallbackPages = PcdGet32 (PcdMmCommBufferPages);
+    if (FallbackPages == 0) {
+      FallbackPages = DEFAULT_COMMON_PI_SMM_COMMUNIATION_REGION_PAGES;
+    }
+
+    Entry->PhysicalStart = (EFI_PHYSICAL_ADDRESS)(UINTN)AllocateReservedPages (FallbackPages);
+    Entry->NumberOfPages = FallbackPages;
   } else {
     MmCommBuffer         = GET_GUID_HOB_DATA (GuidHob);
     Entry->PhysicalStart = MmCommBuffer->PhysicalStart;

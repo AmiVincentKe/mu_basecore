@@ -49,6 +49,9 @@
   gEdkiiPiSmmCommunicationRegionTableGuid     ## PRODUCES   ## SystemTable
   gMmCommBufferHobGuid                        ## CONSUMES
 
+[Pcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdMmCommBufferPages
+
 [Depex]
   TRUE
 
