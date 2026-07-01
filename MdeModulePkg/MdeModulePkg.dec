@@ -99,6 +99,9 @@
   ## @libraryclass   Provides LZMA compression functions.
   LzmaCompressLib|Include/Library/LzmaCompressLib.h
 
+  ## @libraryclass   Provides LZ4 block compression functions.
+  Lz4CompressLib|Include/Library/Lz4CompressLib.h
+
   ## @libraryclass   Provides sorting functions
   SortLib|Include/Library/SortLib.h
 
